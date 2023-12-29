@@ -12,40 +12,47 @@ char	*ft_itoa(int nbr);*/
 
 #include <stdlib.h>
 
-char	*ft_itoa(int nbr)
+int	ft_nb_digit(int n)
 {
-	int		i;
-	int 	tmp;
-	char	*str;
+	int	i;
 
 	i = 0;
-	tmp = nbr;
-	if (nbr == -2147483648)
-		return("-2147483648");
-	str = malloc(sizeof(char) * (i + 1));
-	if (!str)
+	if (n <= 0)
+		i++;
+	while (n != 0)
+	{
+		n /= 10;
+		i++;
+	}
+	return (i);
+}
+
+char	*ft_itoa(int n)
+{
+	char			*str;
+	int				count;
+	unsigned int	i;
+
+	count = 0;
+	count = ft_nb_digit(n);
+	str = malloc(sizeof(char) * (count + 1));
+	if (str == NULL)
 		return (NULL);
-	str[i] = '\0';
-	if (nbr == 0)
-		return ("0");
-	if (nbr < 0)
+	str[count] = '\0';
+	i = 0;
+	i = n;
+	if (n < 0)
+		i = -n;
+	while (0 < count)
 	{
-		i++;
-		nbr *= -1;
+		count--;
+		str[count] = (i % 10) + '0';
+		i /= 10;
+	}
+	if (n == 0)
+		str[0] = '0';
+	if (n < 0)
 		str[0] = '-';
-	}
-	while (tmp)
-	{
-		tmp /= 10;
-		i++;
-	}
-	i--;
-	while (nbr)
-	{
-		str[i] = nbr % 10 + '0';
-		nbr /= 10;
-		i--;
-	}
 	return (str);
 }
 
