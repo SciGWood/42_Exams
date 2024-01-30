@@ -136,7 +136,7 @@ int	ft_printf(const char *format, ... )
 		if (*format == '%')
 		{
 			format++;
-			ret += ft_check_type(args, format, &ret);
+			ft_check_type(args, format, &ret);
 		}
 		else
 			ret += write(1, format, 1);
